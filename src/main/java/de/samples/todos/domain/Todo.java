@@ -1,4 +1,4 @@
-package de.samples.todos.boundary;
+package de.samples.todos.domain;
 
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +17,7 @@ public @Data class Todo {
         NEW, PROGRESS, COMPLETED, CANCELLED
     }
 
-    private long id;
+    private Long id;
     private String title;
     private String description;
     private LocalDate dueDate;
