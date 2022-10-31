@@ -19,3 +19,7 @@ To build and run the app, use
 mvn clean package
 java -jar target/spring-features-0.0.1-SNAPSHOT.jar
 ```
+
+## Use the app
+
+Open `http://localhost:8080/` in the browser.
