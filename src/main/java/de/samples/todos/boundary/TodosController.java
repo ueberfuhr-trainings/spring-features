@@ -1,6 +1,5 @@
 package de.samples.todos.boundary;
 
-import de.samples.todos.domain.Todo;
 import de.samples.todos.domain.TodosService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,30 +31,37 @@ public class TodosController {
      */
 
     private final TodosService service;
+    private final TodoDtoMapper mapper;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    Collection<Todo> findAll() {
-        return service.findAll();
+    Collection<TodoDto> findAll() {
+        return service.findAll()
+          .stream()
+          .map(mapper::map)
+          .toList();
     }
 
     @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    Todo findById(@PathVariable("id") long id) {
-        return service.findById(id).orElse(null);
+    TodoDto findById(@PathVariable("id") long id) {
+        return service.findById(id)
+          .map(mapper::map)
+          .orElse(null);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Todo> create(@RequestBody Todo todo) {
-        service.insert(todo);
+    ResponseEntity<TodoDto> create(@RequestBody TodoDto todo) {
+        final var newTodo = mapper.map(todo);
+        service.insert(newTodo);
         final var locationHeader = linkTo(methodOn(TodosController.class)
-          .findById(todo.getId())).toUri(); // HATEOAS
-        return ResponseEntity.created(locationHeader).body(todo);
+          .findById(newTodo.getId())).toUri(); // HATEOAS
+        return ResponseEntity.created(locationHeader).body(mapper.map(newTodo));
     }
 
     @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void replace(@PathVariable("id") long id, @RequestBody Todo todo) {
+    void replace(@PathVariable("id") long id, @RequestBody TodoDto todo) {
         todo.setId(id);
-        service.replace(todo);
+        service.replace(mapper.map(todo));
     }
 
     @DeleteMapping("{id}")
