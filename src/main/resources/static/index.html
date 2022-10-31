@@ -9,10 +9,21 @@
 <p>
     This is a sample application demonstrating Spring (Boot) Features.
 </p>
-<h2>Pages</h2>
+<h2>Hello World</h2>
 <ul>
     <li><a href="./hello">Hello World!</a></li>
     <li><a href="./hello?name=Sarah">Hello Sarah!</a></li>
+</ul>
+<h2>REST API</h2>
+<ul>
+    <li><a href="./api/v1/todos">Get all todos</a></li>
+    <li><a href="./api/v1/todos/1">Get Todo with ID 1</a></li>
+    <li>Todo anlegen:
+        <code>curl -i -d '{"title":"Swagger UI bereitstellen"}' -H 'Content-Type: application/json' http://localhost:8080/api/v1/todos</code>
+    </li>
+    <li>Todo löschen:
+        <code>curl -i -X 'DELETE' http://localhost:8080/api/v1/todos/4</code>
+    </li>
 </ul>
 </body>
 </html>
