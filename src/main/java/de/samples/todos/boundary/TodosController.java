@@ -26,11 +26,6 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RequiredArgsConstructor
 public class TodosController {
 
-    /*
-     * TODO maybe, it is a good idea to have a custom TodoDto type in the boundary
-     *  to customize HTTP mappings
-     */
-
     private final TodosService service;
     private final TodoDtoMapper mapper;
 
@@ -43,14 +38,21 @@ public class TodosController {
     }
 
     @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    TodoDto findById(@PathVariable("id") long id) {
+    TodoDto findById(
+      @PathVariable("id")
+      long id
+    ) {
         return service.findById(id)
           .map(mapper::map)
           .orElse(null);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<TodoDto> create(@Valid @RequestBody TodoDto todo) {
+    ResponseEntity<TodoDto> create(
+      @Valid
+      @RequestBody
+      TodoDto todo
+    ) {
         final var newTodo = mapper.map(todo);
         service.insert(newTodo);
         final var locationHeader = linkTo(methodOn(TodosController.class)
@@ -60,14 +62,23 @@ public class TodosController {
 
     @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void replace(@PathVariable("id") long id, @Valid @RequestBody TodoDto todo) {
+    void replace(
+      @PathVariable("id")
+      long id,
+      @Valid
+      @RequestBody
+      TodoDto todo
+    ) {
         todo.setId(id);
         service.replace(mapper.map(todo));
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void delete(@PathVariable("id") long id) {
+    void delete(
+      @PathVariable("id")
+      long id
+    ) {
         service.delete(id);
     }
 
