@@ -10,7 +10,7 @@ public interface TodoDtoMapper {
     Todo map(TodoDto todo);
 
     default String mapStatus(Todo.TodoStatus status) {
-        return switch (status) {
+        return null == status ? null : switch (status) {
             case NEW -> "new";
             case PROGRESS -> "in_progress";
             case CANCELLED -> "cancelled";
@@ -19,7 +19,7 @@ public interface TodoDtoMapper {
     }
 
     default Todo.TodoStatus mapStatus(String status) {
-        return switch (status) {
+        return null == status ? null : switch (status) {
             case "new" -> Todo.TodoStatus.NEW;
             case "in_progress" -> Todo.TodoStatus.PROGRESS;
             case "cancelled" -> Todo.TodoStatus.CANCELLED;

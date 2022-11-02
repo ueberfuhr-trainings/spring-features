@@ -1,6 +1,8 @@
 package de.samples.todos.domain;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDate;
@@ -12,6 +14,7 @@ import java.util.Optional;
 import java.util.TreeMap;
 import java.util.stream.Stream;
 
+@Validated
 @Service
 public class TodosService {
 
@@ -44,7 +47,7 @@ public class TodosService {
         return Optional.ofNullable(todos.get(id));
     }
 
-    public void insert(Todo item) {
+    public void insert(@Valid Todo item) {
         final var newId = todos.keySet().stream()
           .max(Comparator.naturalOrder())
           .orElse(0L)
@@ -54,7 +57,7 @@ public class TodosService {
         todos.put(newId, item);
     }
 
-    public void replace(Todo item) {
+    public void replace(@Valid Todo item) {
         todos.put(item.getId(), item);
     }
 

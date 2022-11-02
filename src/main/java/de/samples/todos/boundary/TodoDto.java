@@ -1,6 +1,8 @@
 package de.samples.todos.boundary;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -8,6 +10,8 @@ import java.time.LocalDate;
 public @Data class TodoDto {
 
     private Long id;
+    @NotNull
+    @Size(min = 3)
     private String title;
     private String description;
     private LocalDate dueDate;
