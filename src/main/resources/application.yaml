@@ -1,2 +1,5 @@
 server:
   port: 9080
+spring:
+  jackson:
+    property-naming-strategy: SNAKE_CASE
