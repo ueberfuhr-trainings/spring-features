@@ -22,4 +22,4 @@ java -jar target/spring-features-0.0.1-SNAPSHOT.jar
 
 ## Use the app
 
-Open `http://localhost:8080/` in the browser.
+Open `http://localhost:9080/` in the browser.
