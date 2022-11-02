@@ -58,11 +58,20 @@ public class TodosService {
     }
 
     public void replace(@Valid Todo item) {
-        todos.put(item.getId(), item);
+        final var id = item.getId();
+        this.checkExistingId(id);
+        todos.put(id, item);
     }
 
     public void delete(long id) {
+        this.checkExistingId(id);
         todos.remove(id);
+    }
+
+    private void checkExistingId(long id) {
+        if(!todos.containsKey(id)) {
+            throw new NotFoundException();
+        }
     }
 
 }

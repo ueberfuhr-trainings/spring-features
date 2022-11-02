@@ -1,5 +1,6 @@
 package de.samples.todos.boundary;
 
+import de.samples.todos.domain.NotFoundException;
 import de.samples.todos.domain.TodosService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +45,7 @@ public class TodosController {
     ) {
         return service.findById(id)
           .map(mapper::map)
-          .orElse(null);
+          .orElseThrow(NotFoundException::new);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
