@@ -1,42 +1,28 @@
 package de.samples.todos.domain;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import javax.annotation.PostConstruct;
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
-import java.util.stream.Stream;
 
 @Validated
 @Service
+@RequiredArgsConstructor
 public class TodosService {
 
+    private final ApplicationEventPublisher eventPublisher;
     private final Map<Long, Todo> todos = new TreeMap<>();
 
-    // TODO replace later
-    @PostConstruct
-    public void initialize() {
-        Stream.of(
-            Todo.builder()
-              .title("Staubsaugen")
-              .build(),
-            Todo.builder()
-              .title("Aufräumen")
-              .dueDate(LocalDate.now().plusDays(14))
-              .build(),
-            Todo.builder()
-              .title("Spring Boot lernen")
-              .status(Todo.TodoStatus.PROGRESS)
-              .build()
-          )
-          .forEach(this::insert);
+    long getCount() {
+        return todos.size();
     }
 
     public Collection<Todo> findAll() {
@@ -55,21 +41,24 @@ public class TodosService {
         // wird später wieder ersetzt
         item.setId(newId);
         todos.put(newId, item);
+        eventPublisher.publishEvent(new TodoChangedEvent(item, TodoChangedEvent.ChangeType.CREATED));
     }
 
     public void replace(@Valid Todo item) {
         final var id = item.getId();
         this.checkExistingId(id);
         todos.put(id, item);
+        eventPublisher.publishEvent(new TodoChangedEvent(item, TodoChangedEvent.ChangeType.REPLACED));
     }
 
     public void delete(long id) {
         this.checkExistingId(id);
-        todos.remove(id);
+        final var item = todos.remove(id);
+        eventPublisher.publishEvent(new TodoChangedEvent(item, TodoChangedEvent.ChangeType.REMOVED));
     }
 
     private void checkExistingId(long id) {
-        if(!todos.containsKey(id)) {
+        if (!todos.containsKey(id)) {
             throw new NotFoundException();
         }
     }
