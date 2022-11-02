@@ -1,6 +1,7 @@
 package de.samples.todos.boundary;
 
 import de.samples.todos.domain.TodosService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -49,7 +50,7 @@ public class TodosController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<TodoDto> create(@RequestBody TodoDto todo) {
+    ResponseEntity<TodoDto> create(@Valid @RequestBody TodoDto todo) {
         final var newTodo = mapper.map(todo);
         service.insert(newTodo);
         final var locationHeader = linkTo(methodOn(TodosController.class)
@@ -59,7 +60,7 @@ public class TodosController {
 
     @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void replace(@PathVariable("id") long id, @RequestBody TodoDto todo) {
+    void replace(@PathVariable("id") long id, @Valid @RequestBody TodoDto todo) {
         todo.setId(id);
         service.replace(mapper.map(todo));
     }
