@@ -20,6 +20,15 @@ mvn clean package
 java -jar target/spring-features-0.0.1-SNAPSHOT.jar
 ```
 
+## Sample Data Intialization
+
+There's a Spring Boot Profile that leads to automatically creating sample data on startup.
+Just run the application additionally with the parameter
+
+```bash
+-Dspring.profiles.active=dev
+```
+
 ## Use the app
 
 Open `http://localhost:9080/` in the browser.

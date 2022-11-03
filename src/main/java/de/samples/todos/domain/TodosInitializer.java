@@ -1,5 +1,6 @@
 package de.samples.todos.domain;
 
+import de.samples.todos.config.ApplicationConfiguration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
@@ -13,10 +14,14 @@ import java.util.stream.Stream;
 public class TodosInitializer {
 
     private final TodosService service;
+    private final ApplicationConfiguration configuration;
 
     @EventListener(ContextRefreshedEvent.class)
     public void initializeTodos() {
-        if(this.service.getCount()<1) {
+        if (
+          this.configuration.isInitializeSampleDataOnStartup()
+            && this.service.getCount() < 1
+        ) {
             Stream.of(
                 Todo.builder()
                   .title("Staubsaugen")
