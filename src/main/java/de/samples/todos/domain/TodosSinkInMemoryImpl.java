@@ -1,6 +1,7 @@
 package de.samples.todos.domain;
 
-import lombok.extern.slf4j.Slf4j;
+import de.samples.todos.shared.aspects.LogOnInvocation;
+import org.slf4j.event.Level;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,15 +18,11 @@ import java.util.TreeMap;
  */
 
 @Configuration
-@Slf4j
 public class TodosSinkInMemoryImpl {
-
-    private void warn() {
-        log.warn("Using In-Memory-Implementation. This is not scalable!");
-    }
 
     @Bean
     @ConditionalOnMissingBean(TodosSink.class)
+    @LogOnInvocation(value = "Using In-Memory-Implementation. This is not scalable!", level = Level.WARN)
     TodosSink createSinkForThis() {
         return new TodosSink() {
 
@@ -33,25 +30,21 @@ public class TodosSinkInMemoryImpl {
 
             @Override
             public long getCount() {
-                warn();
                 return todos.size();
             }
 
             @Override
             public Collection<Todo> findAll() {
-                warn();
                 return Collections.unmodifiableCollection(todos.values());
             }
 
             @Override
             public Optional<Todo> findById(long id) {
-                warn();
                 return Optional.ofNullable(todos.get(id));
             }
 
             @Override
             public void save(Todo item) {
-                warn();
                 if (null == item.getId()) {
                     item.setId(
                       todos.keySet().stream()
@@ -65,13 +58,11 @@ public class TodosSinkInMemoryImpl {
 
             @Override
             public boolean exists(long id) {
-                warn();
                 return todos.containsKey(id);
             }
 
             @Override
             public void delete(long id) {
-                warn();
                 todos.remove(id);
             }
         };

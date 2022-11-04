@@ -2,6 +2,7 @@ package de.samples.todos.persistence;
 
 import de.samples.todos.domain.Todo;
 import de.samples.todos.domain.TodosSink;
+import de.samples.todos.shared.aspects.LogOnInvocation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +11,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
+@LogOnInvocation("Using JPA Implementation 👍")
 public class TodosSinkJpaImpl implements TodosSink {
 
     private final TodosRepository repo;
