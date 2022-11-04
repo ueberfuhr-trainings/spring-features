@@ -16,18 +16,7 @@ This is only available, if you run the app with the dev profile!
     <li><a href="./hello?name=Sarah">Hello Sarah!</a></li>
 </ul>
 <h2>REST API</h2>
-<ul>
-    <li><a href="./api/v1/todos">Get all todos</a></li>
-    <li><a href="./api/v1/todos/1">Get Todo with ID 1</a></li>
-    <li>Todo anlegen:
-        <code>curl -i -d '{"title":"Swagger UI bereitstellen"}' -H 'Content-Type: application/json' http://localhost:9080/api/v1/todos</code>
-    </li>
-    <li>Todo überschreiben:
-        <code>curl -i -X 'PUT' -d '{"title":"Swagger UI bereitstellen"}' -H 'Content-Type: application/json' http://localhost:9080/api/v1/todos/4</code>
-    </li>
-    <li>Todo löschen:
-        <code>curl -i -X 'DELETE' http://localhost:9080/api/v1/todos/4</code>
-    </li>
-</ul>
+Use the <a href="./swagger-ui.html">Swagger UI</a>.
+
 </body>
 </html>

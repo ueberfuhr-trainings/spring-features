@@ -1,6 +1,7 @@
 package de.samples.todos.boundary;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.samples.todos.boundary.dtos.TodoDto;
 import de.samples.todos.domain.TodosService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,11 +1,21 @@
 package de.samples.todos.boundary;
 
+import de.samples.todos.boundary.dtos.TodoDto;
+import de.samples.todos.boundary.dtos.ViolationProblemDetailDto;
 import de.samples.todos.domain.NotFoundException;
 import de.samples.todos.domain.TodosService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +34,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("api/v1/todos")
+@Tag(name = "todos", description = "Todo Management")
 @RequiredArgsConstructor
 public class TodosController {
 
@@ -31,6 +42,11 @@ public class TodosController {
     private final TodoDtoMapper mapper;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Get all todos.")
+    @ApiResponse(
+      responseCode = "200",
+      description = "The todos were found and returned."
+    )
     Collection<TodoDto> findAll() {
         return service.findAll()
           .stream()
@@ -39,7 +55,18 @@ public class TodosController {
     }
 
     @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Find a single todo by id.")
+    @ApiResponse(
+      responseCode = "200",
+      description = "The todo was found and returned."
+    )
+    @ApiResponse(
+      responseCode = "404",
+      description = "A todo with the given id could not be found.",
+      content = @Content(schema = @Schema(implementation = ProblemDetail.class))
+    )
     TodoDto findById(
+      @Parameter(description = "The id of the todo.")
       @PathVariable("id")
       long id
     ) {
@@ -49,6 +76,17 @@ public class TodosController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Create a single todo.")
+    @ApiResponse(
+      responseCode = "201",
+      description = "The todo was created and returned.",
+      headers = @Header(name = "Location", description = "The URL of the created todo.")
+    )
+    @ApiResponse(
+      responseCode = "422",
+      description = "The given entity was invalid.",
+      content = @Content(schema = @Schema(implementation = ViolationProblemDetailDto.class))
+    )
     ResponseEntity<TodoDto> create(
       @Valid
       @RequestBody
@@ -63,7 +101,18 @@ public class TodosController {
 
     @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Replace a single todo.")
+    @ApiResponse(responseCode = "204",
+      description = "The todo was replaced."
+    )
+    @ApiResponse(responseCode = "422",
+      description = "The given entity was invalid.",
+      content = @Content(schema = @Schema(implementation = ViolationProblemDetailDto.class)))
+    @ApiResponse(responseCode = "404",
+      description = "A todo with the given id could not be found.",
+      content = @Content(schema = @Schema(implementation = ProblemDetail.class)))
     void replace(
+      @Parameter(description = "The id of the todo.")
       @PathVariable("id")
       long id,
       @Valid
@@ -76,7 +125,14 @@ public class TodosController {
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Delete a single todo by id.")
+    @ApiResponse(responseCode = "204",
+      description = "The todo was deleted.")
+    @ApiResponse(responseCode = "404",
+      description = "A todo with the given id could not be found.",
+      content = @Content(schema = @Schema(implementation = ProblemDetail.class)))
     void delete(
+      @Parameter(description = "The id of the todo.")
       @PathVariable("id")
       long id
     ) {
