@@ -1,4 +1,4 @@
-package de.samples.todos.config;
+package de.samples.todos.shared.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

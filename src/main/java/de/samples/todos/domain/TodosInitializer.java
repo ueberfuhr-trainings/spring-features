@@ -1,6 +1,6 @@
 package de.samples.todos.domain;
 
-import de.samples.todos.config.ApplicationConfiguration;
+import de.samples.todos.shared.config.ApplicationConfiguration;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
