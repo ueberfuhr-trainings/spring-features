@@ -1,5 +1,6 @@
 package de.samples.todos.boundary;
 
+import de.samples.todos.boundary.dtos.TodoDto;
 import de.samples.todos.domain.Todo;
 import org.mapstruct.Mapper;
 
