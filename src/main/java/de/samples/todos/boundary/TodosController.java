@@ -33,7 +33,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("api/v1/todos")
+@RequestMapping("/api/v1/todos")
 @Tag(name = "todos", description = "Todo Management")
 @RequiredArgsConstructor
 public class TodosController {
@@ -54,7 +54,7 @@ public class TodosController {
           .toList();
     }
 
-    @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Find a single todo by id.")
     @ApiResponse(
       responseCode = "200",
@@ -99,7 +99,7 @@ public class TodosController {
         return ResponseEntity.created(locationHeader).body(mapper.map(newTodo));
     }
 
-    @PutMapping(value = "{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Replace a single todo.")
     @ApiResponse(responseCode = "204",
@@ -123,7 +123,7 @@ public class TodosController {
         service.replace(mapper.map(todo));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete a single todo by id.")
     @ApiResponse(responseCode = "204",
