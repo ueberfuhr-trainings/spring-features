@@ -19,4 +19,16 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
 springdoc:
-  paths-to-match: /api/v1/todos/**
+  paths-to-match: /api/v1/todos/**,/actuator/**
+  show-actuator: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+        #health,info,beans,metrics,startup
+  endpoint:
+    health:
+      show-details: always
+      show-components: always
+
