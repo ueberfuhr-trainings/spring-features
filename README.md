@@ -30,6 +30,7 @@ This repository contains a Spring Boot application that demonstrates the most im
    - Invoke the database health extension directly
      ([built-in](http://localhost:9080/actuator/health/db),
       [custom](http://localhost:9080/actuator/health/databaseQueryWorks))
+ - Spring's Native Support (see separate [documentation](docs/native/index.md))
 
 ## Run the app
 To directly run the app from Maven, use
