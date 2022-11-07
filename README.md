@@ -6,6 +6,31 @@
 
 This repository contains a Spring Boot application that demonstrates the most important features.
 
+ - Spring MVC [REST Controller](src/main/java/de/samples/todos/boundary/TodosController.java)
+   incl. OpenAPI descriptions
+   (run the app and test it with [Swagger-UI](http://localhost:9080/swagger-ui.html))
+ - [MapStruct-Mappers](src/main/java/de/samples/todos/boundary/TodoDtoMapper.java) (out of Spring's scope)
+ - Bean Validation in Controller and Service
+ - [Global Exception Handling](src/main/java/de/samples/todos/boundary/GlobalExceptionHandler.java)
+   incl. RFC-7807 Problem Details
+ - [JPA Repository](src/main/java/de/samples/todos/persistence/TodosRepository.java)
+ - Event [Broadcasting](src/main/java/de/samples/todos/domain/TodosService.java)
+   and [Handling](src/main/java/de/samples/todos/domain/TodoChangedEventLogger.java)
+   incl. [Test](src/test/java/de/samples/todos/domain/TodosChangedEventPublishingTest.java)
+ - Advanced Bean Configuration, e.g.
+   - Using [`@ConditionalOnMissingBean`](src/main/java/de/samples/todos/domain/TodosSinkInMemoryImpl.java)
+   - Using [Profiles](src/main/java/de/samples/todos/boundary/HelloWorldController.java)
+   - Using [YAML-Extension](src/main/java/de/samples/todos/shared/config/ApplicationConfiguration.java)
+ - [Aspect](src/main/java/de/samples/todos/shared/aspects/LogOnInvocationAspect.java)
+   for automatic logging on method invocation
+   ([usage1](src/main/java/de/samples/todos/persistence/TodosSinkJpaImpl.java),
+    [usage2](src/main/java/de/samples/todos/domain/TodosSinkInMemoryImpl.java))
+ - [Actuator Health and Info Extensions](src/main/java/de/samples/todos/boundary/config/ActuatorConfiguration.java)
+   - Run the app and test it with [Swagger-UI](http://localhost:9080/swagger-ui.html)
+   - Invoke the database health extension directly
+     ([built-in](http://localhost:9080/actuator/health/db),
+      [custom](http://localhost:9080/actuator/health/databaseQueryWorks))
+
 ## Run the app
 To directly run the app from Maven, use
 
