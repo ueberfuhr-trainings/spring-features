@@ -6,3 +6,6 @@ target/
 *.iws
 *.iml
 *.ipr
+
+### Native Build ###
+test-results-native
