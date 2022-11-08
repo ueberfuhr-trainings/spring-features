@@ -43,7 +43,7 @@ public class HelloWorld {
     }
 }
 ```
-Then we compile the programm and build the native image.
+Then, we compile the programm and build the native image.
 ```bash
 javac HelloWorld.java
 native-image HelloWorld
