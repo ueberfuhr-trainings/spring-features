@@ -48,4 +48,5 @@ Then, we compile the programm and build the native image.
 javac HelloWorld.java
 native-image HelloWorld
 ```
-After that, we should find a native executable (Windows: `HelloWorld.exe`) in the directo
+After that, we should find a native executable (Windows: `HelloWorld.exe`) 
+in the directory.
