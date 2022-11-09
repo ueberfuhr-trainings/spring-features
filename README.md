@@ -32,13 +32,13 @@ This repository contains a Spring Boot application that demonstrates the most im
       [custom](http://localhost:9080/actuator/health/databaseQueryWorks))
  - Spring's Native Support (see separate [documentation](docs/native/index.md))
  - Spring Security
-   - We need to run the app with the `security` profile (e.g. with parameter `-Dspring.profiles.active=security`) to enable
-     security.
    - There are 2 user accounts in-memory with a simple password and role:
      - `user` / `password` (role `USER`)
      - `admin` / `password` (role `ADMIN`)
    - We'll detect a `/api/v1/user` REST resource that we can call. **Only the `USER` role is allowed to run in - not the `ADMIN` role.**
    - Only the `ADMIN` role is allowed to delete a todo.
+   - To disable the security, we need to run the app with the `no-security` profile (e.g. with parameter `-Dspring.profiles.active=no-security`) to enable
+     security.
 
 ## Run the app
 To directly run the app from Maven, use
@@ -54,7 +54,7 @@ mvn clean package
 java -jar target/spring-features-0.0.1-SNAPSHOT.jar
 ```
 
-## Sample Data Intialization
+## Sample Data Initialization
 
 There's a Spring Boot Profile that leads to automatically creating sample data on startup.
 Just run the application additionally with the parameter
@@ -65,4 +65,5 @@ Just run the application additionally with the parameter
 
 ## Use the app
 
-Open `http://localhost:9080/` in the browser.
+Open `http://localhost:9080/` in the browser. If you're requested to login,
+use `user` / `password` or `admin` / `password`.

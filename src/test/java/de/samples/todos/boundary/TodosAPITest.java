@@ -5,6 +5,7 @@ import de.samples.todos.boundary.dtos.TodoDto;
 import de.samples.todos.domain.TodosService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -20,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /*
  * Test the boundary concerning REST API behavior.
  */
-@WebMvcTest
+@WebMvcTest(excludeAutoConfiguration = SecurityAutoConfiguration.class)
 public class TodosAPITest {
 
     @MockBean
