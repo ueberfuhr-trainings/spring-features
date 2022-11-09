@@ -22,7 +22,7 @@ import static org.springframework.http.HttpHeaders.ORIGIN;
 
 @Configuration
 @RequiredArgsConstructor
-@ImportRuntimeHints(JacksonHints.class)
+@ImportRuntimeHints(JacksonRuntimeHints.class)
 public class BoundaryConfiguration {
 
     private final CorsConfigurationData allowed;
