@@ -19,7 +19,7 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
 springdoc:
-  paths-to-match: /api/v1/todos/**,/actuator/**
+  paths-to-match: /api/v1/**,/actuator/**
   show-actuator: true
 management:
   endpoints:
