@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -131,6 +132,7 @@ public class TodosController {
     @ApiResponse(responseCode = "404",
       description = "A todo with the given id could not be found.",
       content = @Content(schema = @Schema(implementation = ProblemDetail.class)))
+    @PreAuthorize("hasRole('ADMIN')")
     void delete(
       @Parameter(description = "The id of the todo.")
       @PathVariable("id")
