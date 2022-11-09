@@ -15,24 +15,16 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @EnableMethodSecurity
+@Profile("!no-security")
 public class SecurityConfiguration {
 
     // https://spring.io/blog/2022/02/21/spring-security-without-the-websecurityconfigureradapter
     @Bean
-    @Profile("!security")
     public SecurityFilterChain httpBasic(HttpSecurity http) throws Exception {
         http
           .authorizeHttpRequests(authz -> authz.anyRequest().authenticated())
           .httpBasic(withDefaults());
         return http.build();
-    }
-
-    @Bean
-    @Profile("!security")
-    public SecurityFilterChain noSecurity(HttpSecurity http) throws Exception {
-        return http
-          .authorizeHttpRequests(authz -> authz.anyRequest().permitAll())
-          .build();
     }
 
     @Bean

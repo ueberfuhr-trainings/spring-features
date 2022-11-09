@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/user")
-@Profile("security")
+@Profile("!no-security")
 @PreAuthorize("hasRole('USER')")
 @Tag(name = "users", description = "User Information (only when security is enabled)")
 public class UserAccountController {
