@@ -22,7 +22,9 @@ public @Data class TodoDto {
     @Size(max=255)
     @Schema(description = "The longer description.")
     private String description;
-    @Schema(description = "The date when the todo has to be completed.")
+    // we need to specify the property name here explicitely, because the property naming strategy is not
+    // detected automatically
+    @Schema(name = "due_date", description = "The date when the todo has to be completed.")
     private LocalDate dueDate;
     @JsonProperty(defaultValue = "new")
     @Pattern(regexp = "new|progress|completed|archived")
