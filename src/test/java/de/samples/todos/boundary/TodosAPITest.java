@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /*
  * Test the boundary concerning REST API behavior.
  */
-@WebMvcTest(excludeAutoConfiguration = SecurityAutoConfiguration.class)
+@WebMvcTest(controllers = TodosController.class, excludeAutoConfiguration = SecurityAutoConfiguration.class)
 public class TodosAPITest {
 
     @MockBean
