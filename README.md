@@ -6,9 +6,9 @@
 
 This repository contains a Spring Boot application that demonstrates the most important features.
 
- - Spring MVC [REST Controller](src/main/java/de/samples/todos/boundary/TodosController.java)
-   incl. OpenAPI descriptions
-   (run the app and test it with [Swagger-UI](http://localhost:9080/swagger-ui.html))
+ - Spring MVC incl. OpenAPI descriptions
+   - [REST Controller](src/main/java/de/samples/todos/boundary/TodosController.java)
+   - [Pageable Controller](src/main/java/de/samples/todos/boundary/pageable/PageableTodosController.java)
  - [MapStruct-Mappers](src/main/java/de/samples/todos/boundary/TodoDtoMapper.java) (out of Spring's scope)
  - Bean Validation in Controller and Service
  - [Global Exception Handling](src/main/java/de/samples/todos/boundary/GlobalExceptionHandler.java)
