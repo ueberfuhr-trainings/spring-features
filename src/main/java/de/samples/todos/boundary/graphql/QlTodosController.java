@@ -1,5 +1,6 @@
 package de.samples.todos.boundary.graphql;
 
+import de.samples.todos.boundary.graphql.fake_domain.AssigneeService;
 import de.samples.todos.boundary.graphql.types.QlAssignee;
 import de.samples.todos.boundary.graphql.types.QlCreateTodoInput;
 import de.samples.todos.boundary.graphql.types.QlTodo;
@@ -25,6 +26,7 @@ public class QlTodosController {
 
     // custom mapper
     private final TodosService service;
+    private final AssigneeService assigneeService;
     private final QlTypesMapper mapper;
 
     @QueryMapping("findTodos")
@@ -39,13 +41,7 @@ public class QlTodosController {
     @SuppressWarnings("unused") // invoked by GraphQL
     @SchemaMapping(typeName = "Todo", field = "assignee")
     public QlAssignee findAssignee(QlTodo todo) {
-        log.info("Retrieving assignee for todo with id " + todo.getId());
-        // we could make any database query here
-        QlAssignee result = new QlAssignee();
-        result.setId(todo.getAssigneeId());
-        result.setName(String.format("Assignee for '%s'", todo.getTitle()));
-        result.setDepartment("ACME Department");
-        return result;
+        return assigneeService.findAssignee(todo);
     }
 
     @SuppressWarnings("unused") // invoked by GraphQL

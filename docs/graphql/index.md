@@ -1,13 +1,13 @@
 # GraphQL
 
-GraphQL is an open-source data query and manipulation language for APIs, and a runtime for fulfilling 
+GraphQL is an open-source data query and manipulation language for APIs, and a runtime for fulfilling
 queries with existing data. GraphQL was developed internally by Facebook in 2012 before being publicly
 released in 2015. On 7 November 2018, the GraphQL project was moved from Facebook to the newly established
-GraphQL Foundation, hosted by the non-profit Linux Foundation. 
+GraphQL Foundation, hosted by the non-profit Linux Foundation.
 Since 2012, GraphQL's rise has closely followed the adoption timeline as set out by Lee Byron, GraphQL's
 creator. Byron's goal is to make GraphQL omnipresent across web platforms.
 
-GraphQL is used to leverage two types of requests, including mutations that change data and queries that retrieve data from server. The conceptual difference lies in the very nature of their operations. While the operations of SOAP represent logic, 
+GraphQL is used to leverage two types of requests, including mutations that change data and queries that retrieve data from server. The conceptual difference lies in the very nature of their operations. While the operations of SOAP represent logic,
 those of GraphQL and REST represent data resources. The advantage of GraphQL compared to REST is the flexibility
 of the client to specify which information to retrieve (and which not!). REST resources always contain all
 fields (unless you use OData `expand`, that is also not that flexible), while GraphQL responses only
@@ -36,6 +36,7 @@ query ReadAllTodos {
     }
 }
 ```
+
 If we want to get the assignee too
 (that in our code is simulated to get fetched by a further database query),
 we just need to add the field and the requested subfields to the query:
@@ -72,4 +73,45 @@ mutation CreateTodo {
         id
     }
 }
+```
+
+## Write Tests
+
+There's JUnit Support for testing GraphQL APIs. We need to add this dependency to our project:
+
+```xml
+
+<dependency>
+    <groupId>org.springframework.graphql</groupId>
+    <artifactId>spring-graphql-test</artifactId>
+    <scope>test</scope>
+</dependency>
+```
+
+Then, we can write tests this way:
+
+```java
+
+@GraphQlTest(MyController.class)
+public class MyControllerTest {
+
+    @Autowired
+    GraphQlTester graphQl;
+
+    @Test
+    void should_make_call() {
+        graphQl
+          .document("""
+            findTodos {
+                id
+                title
+            }
+            """)
+          .execute()
+        // ... verifications
+        ;
+    }
+
+}
+
 ```
