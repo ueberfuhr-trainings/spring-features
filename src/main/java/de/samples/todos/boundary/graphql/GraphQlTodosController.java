@@ -4,6 +4,7 @@ import de.samples.todos.boundary.graphql.types.QlAssignee;
 import de.samples.todos.boundary.graphql.types.QlCreateTodoInput;
 import de.samples.todos.boundary.graphql.types.QlTodo;
 import de.samples.todos.domain.TodosService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -56,7 +57,7 @@ public class GraphQlTodosController {
 
     @SuppressWarnings("unused") // invoked by GraphQL
     @MutationMapping("createTodo")
-    public QlTodo create(@Argument("input") QlCreateTodoInput input) {
+    public QlTodo create(@Valid @Argument("input") QlCreateTodoInput input) {
         final var newTodo = mapper.map(input);
         service.insert(newTodo);
         return mapper.map(newTodo);
