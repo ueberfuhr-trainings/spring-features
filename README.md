@@ -9,6 +9,8 @@ This repository contains a Spring Boot application that demonstrates the most im
  - Spring MVC incl. OpenAPI descriptions
    - [REST Controller](src/main/java/de/samples/todos/boundary/TodosController.java)
    - [Pageable Controller](src/main/java/de/samples/todos/boundary/pageable/PageableTodosController.java)
+   - [GraphQL Controller](src/main/java/de/samples/todos/boundary/graphql/GraphQlTodosController.java)
+     (see separate [docs](docs/graphql/index.md))
  - [MapStruct-Mappers](src/main/java/de/samples/todos/boundary/TodoDtoMapper.java) (out of Spring's scope)
  - Bean Validation in Controller and Service
  - [Global Exception Handling](src/main/java/de/samples/todos/boundary/GlobalExceptionHandler.java)
