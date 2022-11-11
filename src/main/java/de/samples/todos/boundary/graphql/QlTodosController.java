@@ -21,7 +21,7 @@ import java.util.Optional;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-public class GraphQlTodosController {
+public class QlTodosController {
 
     // custom mapper
     private final TodosService service;
