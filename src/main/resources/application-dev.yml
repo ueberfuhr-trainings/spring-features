@@ -1,2 +1,6 @@
 application:
   initialize-sample-data-on-startup: true
+spring:
+  graphql:
+    graphiql:
+      enabled: true

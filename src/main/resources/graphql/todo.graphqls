@@ -1,0 +1,37 @@
+scalar Date
+
+type Todo {
+    id: ID!
+    title: String!
+    description: String
+    dueDate: Date
+    status: TodoStatus!
+    assignee: Assignee
+}
+
+type Assignee {
+    id: ID!
+    name: String!
+    department: String
+}
+
+enum TodoStatus {
+    NEW
+    PROGRESS
+    COMPLETED
+    CANCELLED
+}
+
+input CreateTodoInput {
+    title: String!
+    description: String
+    dueDate: Date
+}
+
+type Query {
+    findTodos: [Todo]!
+    findById(id: ID!): Todo
+}
+type Mutation {
+    createTodo(input: CreateTodoInput!): Todo!
+}
