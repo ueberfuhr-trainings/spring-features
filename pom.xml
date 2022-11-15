@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.0-RC1</version>
+        <version>3.0.0-RC2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>de.samples</groupId>
@@ -140,6 +140,14 @@
                         </annotationProcessorPaths>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.graalvm.buildtools</groupId>
+                    <artifactId>native-maven-plugin</artifactId>
+                    <configuration>
+                        <!-- Mockito is not supported -->
+                        <skipNativeTests>true</skipNativeTests>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -157,6 +165,30 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <!-- The native profile is already defined by the spring-boot-starter-parent. -->
+        <!-- To use this plugin, we need GraalVM (located under $GRAALVM_HOME) and native-builder (located in the $PATH)-->
+        <profile>
+            <id>native</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>build-native</id>
+                                <goals>
+                                    <goal>compile-no-fork</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
     <repositories>
         <repository>
             <id>spring-milestones</id>
@@ -177,40 +209,4 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-    <profiles>
-        <!-- The native profile is already defined by the spring-boot-starter-parent. -->
-        <!-- To use this plugin, we need GraalVM (located under $GRAALVM_HOME) and native-builder (located in the $PATH)-->
-        <profile>
-            <id>native</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.graalvm.buildtools</groupId>
-                        <artifactId>native-maven-plugin</artifactId>
-                        <version>${native.maven.plugin.version}</version>
-                        <extensions>true</extensions>
-                        <executions>
-                            <execution>
-                                <id>build-native</id>
-                                <goals>
-                                    <goal>compile-no-fork</goal>
-                                </goals>
-                                <phase>package</phase>
-                            </execution>
-                            <execution>
-                                <id>test-native</id>
-                                <goals>
-                                    <goal>test</goal>
-                                </goals>
-                                <phase>test</phase>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <skipNativeTests>true</skipNativeTests>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

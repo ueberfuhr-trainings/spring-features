@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import java.util.Objects;
 
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
@@ -53,6 +55,17 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             )
           );
     }
+
+    @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
+    @ResponseStatus(code = FORBIDDEN)
+    @ResponseBody
+    protected ProblemDetail handleAuthenticationCredentialsNotFoundException() {
+        final var result = ProblemDetail.forStatus(FORBIDDEN);
+        result.setTitle("Authentication information not available");
+        result.setDetail("Seems that security is not enabled.");
+        return result;
+    }
+
 
     // Exception thrown by service (or any other) validation.
     @ExceptionHandler(ValidationException.class)

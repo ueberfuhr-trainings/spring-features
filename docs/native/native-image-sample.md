@@ -24,7 +24,7 @@ The tool is downloaded into the same folder like `gu`.
 
 ### Install Native Compiler (Windows)
 
-Unfortunately, `native-image` needs a platform-specific, native compiler that depends
+Unfortunately, `native-image` needs a platform-specific native compiler that depends
 on our platform that we run the tool. On Windows, it is a `cl.exe`, that is part of the
 C++ toolset (MS Build Tools). We can get this by following the
 [official instructions](https://learn.microsoft.com/en-us/cpp/build/building-on-the-command-line).

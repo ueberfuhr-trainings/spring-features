@@ -121,8 +121,9 @@ during AOT compiling:
 
 This file configures the `native-image` builder to compile the field into the native code.
 
-### Mockito
+### Incompatibilities
 
+#### Mockito
 Currently, there is an  [issue](https://github.com/spring-projects/spring-boot/issues/32195) with Mockito running in
 native test execution mode. At the moment, we could avoid this by disabling native tests:
 
@@ -136,3 +137,8 @@ native test execution mode. At the moment, we could avoid this by disabling nati
     </configuration>
 </plugin>
 ```
+
+#### GraphQL
+
+GraphQL does not declare any native hints that would be necessary to run in native apps.
+An [issue](https://github.com/spring-projects/spring-graphql/issues/495) exists.
