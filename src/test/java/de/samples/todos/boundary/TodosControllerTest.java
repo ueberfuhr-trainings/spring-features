@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.stream.Stream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
@@ -39,7 +39,7 @@ class TodosControllerTest {
         final var dto = new TodoDto();
         dto.setId(1L);
         dto.setTitle("test");
-        when(service.findAll()).thenReturn(List.of(todo));
+        when(service.findAll()).thenReturn(Stream.of(todo));
         when(mapper.map(todo)).thenReturn(dto);
         // Act
         Collection<TodoDto> result = controller.findAll();

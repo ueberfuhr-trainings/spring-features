@@ -28,11 +28,11 @@ public class PageableTodosSinkInMemoryImpl {
         // TODO ordering is not supported currently
         return params -> {
             final var all = sink.findAll();
-            final var pageEntries = all.stream()
+            final var pageEntries = all
               .skip((long) params.getPageSize() * params.getPageNumber())
               .limit(params.getPageSize())
               .collect(Collectors.toList());
-            return new PageImpl<>(pageEntries, params, all.size());
+            return new PageImpl<>(pageEntries, params, sink.getCount());
         };
     }
 

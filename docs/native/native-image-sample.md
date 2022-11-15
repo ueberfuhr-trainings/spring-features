@@ -22,16 +22,8 @@ to install the `native-image` tool:
 
 The tool is downloaded into the same folder like `gu`.
 
-### Install Native Compiler (Windows)
-
-Unfortunately, `native-image` needs a platform-specific native compiler that depends
-on our platform that we run the tool. On Windows, it is a `cl.exe`, that is part of the
-C++ toolset (MS Build Tools). We can get this by following the
-[official instructions](https://learn.microsoft.com/en-us/cpp/build/building-on-the-command-line).
-
-1. Download and install [Visual Studio](https://visualstudio.microsoft.com/de/downloads/).
-1. In the `cmd`, run `C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\VC\Auxiliary\Build\vcvars64.bat`.
-1. After that, we should be able to run `cl`
+Don't forget to follow the Prerequisites in the [installation instructions](https://www.graalvm.org/22.1/reference-manual/native-image/)
+to install the platform-dependent native compiler.
 
 ## Sample
 

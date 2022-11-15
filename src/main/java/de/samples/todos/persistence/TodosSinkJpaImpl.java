@@ -6,8 +6,8 @@ import de.samples.todos.shared.aspects.LogOnInvocation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Component
 @RequiredArgsConstructor
@@ -23,11 +23,10 @@ public class TodosSinkJpaImpl implements TodosSink {
     }
 
     @Override
-    public Collection<Todo> findAll() {
+    public Stream<Todo> findAll() {
         return repo.findAll()
           .stream()
-          .map(mapper::map)
-          .toList();
+          .map(mapper::map);
     }
 
     @Override

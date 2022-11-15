@@ -6,8 +6,8 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
-import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 @Validated
 @Service
@@ -21,7 +21,7 @@ public class TodosService {
         return sink.getCount();
     }
 
-    public Collection<Todo> findAll() {
+    public Stream<Todo> findAll() {
         return sink.findAll();
     }
 

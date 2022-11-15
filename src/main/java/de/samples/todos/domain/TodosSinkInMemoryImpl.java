@@ -6,12 +6,11 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
+import java.util.stream.Stream;
 
 /*
  * We need a factory here, because @ConditionalOnMissingBean only works with that!
@@ -34,8 +33,8 @@ public class TodosSinkInMemoryImpl {
             }
 
             @Override
-            public Collection<Todo> findAll() {
-                return Collections.unmodifiableCollection(todos.values());
+            public Stream<Todo> findAll() {
+                return todos.values().stream();
             }
 
             @Override

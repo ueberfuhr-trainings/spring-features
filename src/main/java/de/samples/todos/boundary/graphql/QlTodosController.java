@@ -32,7 +32,6 @@ public class QlTodosController {
     @QueryMapping("findTodos")
     public Collection<QlTodo> findAll() {
         return service.findAll()
-          .stream()
           .map(mapper::map)
           .toList();
     }

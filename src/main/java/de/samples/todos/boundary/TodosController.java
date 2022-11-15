@@ -50,7 +50,6 @@ public class TodosController {
     )
     Collection<TodoDto> findAll() {
         return service.findAll()
-          .stream()
           .map(mapper::map)
           .toList();
     }

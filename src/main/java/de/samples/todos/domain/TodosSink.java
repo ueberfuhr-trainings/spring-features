@@ -1,12 +1,12 @@
 package de.samples.todos.domain;
 
-import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public interface TodosSink {
     long getCount();
 
-    Collection<Todo> findAll();
+    Stream<Todo> findAll();
 
     Optional<Todo> findById(long id);
 
