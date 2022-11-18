@@ -22,7 +22,7 @@ to install the `native-image` tool:
 
 The tool is downloaded into the same folder like `gu`.
 
-Don't forget to follow the Prerequisites in the [installation instructions](https://www.graalvm.org/22.1/reference-manual/native-image/)
+Don't forget to follow the Prerequisites in the [installation instructions](https://www.graalvm.org/22.3/reference-manual/native-image/)
 to install the platform-dependent native compiler.
 
 ## Sample
