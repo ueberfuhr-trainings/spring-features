@@ -3,7 +3,6 @@ package de.samples.todos.boundary.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportRuntimeHints;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -22,7 +21,8 @@ import static org.springframework.http.HttpHeaders.ORIGIN;
 
 @Configuration
 @RequiredArgsConstructor
-@ImportRuntimeHints(JacksonRuntimeHints.class)
+// Merged into Spring Boot 3.0.0-RC2
+// @ImportRuntimeHints(JacksonRuntimeHints.class)
 public class BoundaryConfiguration {
 
     private final CorsConfigurationData allowed;
@@ -52,5 +52,32 @@ public class BoundaryConfiguration {
 
         };
     }
+
+
+    /*
+    class JacksonRuntimeHints implements RuntimeHintsRegistrar {
+
+        @Override
+        public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
+            if (ClassUtils.isPresent("com.fasterxml.jackson.databind.PropertyNamingStrategy", classLoader)) {
+                registerHints(hints.reflection());
+            }
+        }
+
+        private void registerHints(ReflectionHints reflection) {
+            var fieldsOfStrategies = PropertyNamingStrategies.class.getDeclaredFields();
+            // Jackson 2.12 pre
+            var fieldsOfStrategy = PropertyNamingStrategy.class.getDeclaredFields();
+            // Find all static fields that provide a PropertyNamingStrategy
+            // (this way we automatically support new constants
+            // that may be added by Jackson in the future)
+            Stream.concat(Stream.of(fieldsOfStrategies), Stream.of(fieldsOfStrategy))
+              .filter(f -> Modifier.isStatic(f.getModifiers()))
+              .filter(f -> f.getType().isAssignableFrom(PropertyNamingStrategy.class))
+              .forEach(reflection::registerField);
+        }
+
+    }
+    */
 
 }
